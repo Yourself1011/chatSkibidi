@@ -96,7 +96,7 @@ class LLM(LLMBase):
         self.avgLoss = 0
         self.history = []
 
-        self.lossScale = 2**16
+        self.lossScale = 2**12
 
         super().__init__()
 
@@ -214,7 +214,7 @@ class LLM(LLMBase):
         data = {
             k: np.split(data[k], self.layerCount, axis=-1)
             for k in keys
-            if k not in ["b", "g", "pos", "words"]
+            if k not in ["b", "g", "pos", "words", "allow_pickle"]
         }
         for i in range(self.layerCount):
             self.attentions[i].qkv = data["attnqkv"][i]
